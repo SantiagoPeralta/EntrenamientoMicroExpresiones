@@ -134,7 +134,9 @@ function startTrial() {
         currentState.currentEmotion, 
         currentState.currentAngle
     );
-    
+    currentState.neutralImage = neutralPath;
+    currentState.expressionImage = expressionPath;
+
     console.log('🖼️ Cargando neutral:', neutralPath);
     console.log('🖼️ Cargando expresión:', expressionPath);
     
@@ -269,11 +271,11 @@ function checkAnswer() {
             </div>
             <div class="comparison-images">
                 <div class="text-center">
-                    <img src="https://ik.imagekit.io/tu_id_usuario/${neutralImg.src}" alt="Neutral" class="border">
+                    <img src="${currentState.neutralImage}" alt="Neutral" class="border">
                     <small class="d-block text-muted mt-1">Neutral</small>
                 </div>
                 <div class="text-center">
-                    <img src="https://ik.imagekit.io/tu_id_usuario/${expressionImg.src}" alt="Expresión" class="border">
+                    <img src="${currentState.expressionImage}" alt="Expresión" class="border">
                     <small class="d-block text-muted mt-1">${correctEmotion.name}</small>
                 </div>
             </div>
