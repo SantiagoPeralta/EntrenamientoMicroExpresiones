@@ -62,7 +62,7 @@ function updateSubjectList() {
  */
 function getImagePath(subject, emotion, angle) {
     // El ángulo ya incluye la posición (S, HL, HR, FL, FR)
-    return `KDEF/${subject}/${subject}${emotion}${angle}.JPG`;
+    return `https://ik.imagekit.io/xpsde56xg/KDEF/${subject}/${subject}${emotion}${angle}.JPG`;
 }
 
 /**
