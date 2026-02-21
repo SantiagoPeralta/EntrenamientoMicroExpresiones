@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrenador de Microexpresiones KDEF</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles_v3.css">
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+                <!-- Header -->
+                <div class="text-center mb-4">
+                    <h1 class="display-5 fw-bold text-primary">Entrenador de Microexpresiones</h1>
+                    <p class="text-muted">KDEF - Karolinska Directed Emotional Faces</p>
+                </div>
+
+                <!-- Controls Card -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-3">
+                                <label class="form-label fw-semibold">Tiempo exposición</label>
+                                <div class="input-group">
+                                    <input type="number" id="exposureTime" class="form-control" min="50" max="500" step="10" value="200">
+                                    <span class="input-group-text">ms</span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 col-md-3">
+                                <label class="form-label fw-semibold">Dificultad</label>
+                                <div class="btn-group w-100" role="group">
+                                    <button class="btn btn-success difficulty-btn active" onclick="setDifficulty('easy')">Fácil</button>
+                                    <button class="btn btn-warning difficulty-btn" onclick="setDifficulty('medium')">Medio</button>
+                                    <button class="btn btn-danger difficulty-btn" onclick="setDifficulty('hard')">Difícil</button>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-3">
+                                <div class="form-check form-switch mt-4">
+                                    <input class="form-check-input" type="checkbox" id="randomMode" checked onchange="toggleRandomMode()" style="transform: scale(1.2);">
+                                    <label class="form-check-label fw-semibold" for="randomMode">
+                                        <i class="bi bi-shuffle"></i> Modo Random
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Selectores manuales (visibles solo cuando random mode está desactivado) -->
+                            <div class="col-12 col-md-3" id="manualSelectors" style="display: none;">
+                                <label class="form-label fw-semibold">Fase</label>
+                                <select class="form-select" id="phaseSelect" onchange="updateSubjectList()">
+                                    <option value="A">Fase A</option>
+                                    <option value="B">Fase B</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-3" id="subjectSelector" style="display: none;">
+                                <label class="form-label fw-semibold">Sujeto</label>
+                                <select class="form-select" id="subjectSelect">
+                                    <!-- Se llenará dinámicamente -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Container - más grande -->
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body p-0 position-relative">
+                        <div class="image-container" id="imageContainer" style="height: 550px;">
+                            <div class="image-display" id="imageDisplay">
+                                <img id="neutralImage" class="active" src="" alt="Neutral">
+                                <img id="expressionImage" src="" alt="Expression">
+                            </div>
+                            <div class="timer-bar" id="timerBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trial Info -->
+                <div id="trialInfo" class="mb-3"></div>
+
+                <!-- Emotion Buttons -->
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-3 text-muted">Selecciona la emoción que has visto:</h6>
+                        <div class="row g-2" id="emotionOptions">
+                            <div class="col-4 col-md-2">
+                                <button class="btn btn-outline-danger w-100 emotion-btn" onclick="selectEmotion('AN')">Ira</button>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <button class="btn btn-outline-success w-100 emotion-btn" onclick="selectEmotion('DI')">Asco</button>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <button class="btn btn-outline-warning w-100 emotion-btn" onclick="selectEmotion('AF')">Miedo</button>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <button class="btn btn-outline-primary w-100 emotion-btn" onclick="selectEmotion('HA')">Alegría</button>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <button class="btn btn-outline-info w-100 emotion-btn" onclick="selectEmotion('SA')">Tristeza</button>
+                            </div>
+                            <div class="col-4 col-md-2">
+                                <button class="btn btn-outline-secondary w-100 emotion-btn" onclick="selectEmotion('SU')">Sorpresa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="row g-2 mb-4">
+                    <div class="col-6">
+                        <button class="btn btn-primary w-100 py-3" id="startBtn" onclick="startTrial()">
+                            <i class="bi bi-play-fill"></i> Iniciar Ensayo
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-success w-100 py-3" id="checkBtn" onclick="checkAnswer()" disabled>
+                            <i class="bi bi-check-lg"></i> Comprobar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <div id="result" class="mb-4" style="display: none;"></div>
+
+                <!-- Stats -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="h2 mb-0 text-primary" id="score">0</div>
+                                <small class="text-muted">Aciertos</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="h2 mb-0 text-primary" id="attempts">0</div>
+                                <small class="text-muted">Intentos</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="h2 mb-0 text-primary" id="accuracy">0%</div>
+                                <small class="text-muted">Precisión</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/config_v3.5.js"></script>
+    <script src="js/utils_v3.5.js"></script>
+    <script src="js/app_v3.5.js"></script>
+</body>
+</html>

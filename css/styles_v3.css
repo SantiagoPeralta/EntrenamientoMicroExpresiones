@@ -1,0 +1,249 @@
+/* Custom styles complementing Bootstrap */
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    background-color: #1a1a1a;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.image-display {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-display img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.1s ease;
+    opacity: 0;
+}
+
+.image-display img.active {
+    opacity: 1;
+}
+
+.timer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+    transition: width linear;
+    width: 0%;
+    z-index: 10;
+}
+
+/* Trial info badge */
+.trial-info .badge-container {
+    display: inline-flex;
+    gap: 0.75rem;
+    background-color: #0d6efd;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 3rem;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+}
+
+.trial-info .badge-container span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.trial-info .badge-container span:not(:last-child) {
+    padding-right: 0.75rem;
+    border-right: 2px solid rgba(255,255,255,0.3);
+}
+
+/* Emotion buttons */
+.emotion-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.25rem;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.emotion-btn.selected {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+    transform: scale(1.02);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Result feedback */
+.result {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    animation: slideIn 0.3s ease;
+}
+
+.result.success {
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+    color: #0a3622;
+}
+
+.result.error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    color: #58151c;
+}
+
+.feedback-content {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(0,0,0,0.1);
+}
+
+.comparison-images {
+    display: flex;
+    gap: 2rem;
+    margin: 1.5rem 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.comparison-images img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 0.75rem;
+    background: #f8f9fa;
+    padding: 0.75rem;
+    border: 2px solid #dee2e6;
+}
+
+.comparison-images small {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.key-features {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    margin: 0.75rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.key-features h6 {
+    color: #0d6efd;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.key-features ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+.key-features li {
+    margin: 0.5rem 0;
+    padding-left: 1.75rem;
+    position: relative;
+}
+
+.key-features li:before {
+    content: "🔍";
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+}
+
+/* Difficulty buttons */
+.difficulty-btn.active {
+    filter: brightness(0.9);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5);
+}
+
+/* Stats */
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Manual selectors */
+select.form-select {
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .image-container {
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-container {
+        height: 350px;
+    }
+    
+    .trial-info .badge-container {
+        flex-direction: column;
+        border-radius: 2rem;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .trial-info .badge-container span:not(:last-child) {
+        padding-right: 0;
+        border-right: none;
+        border-bottom: 2px solid rgba(255,255,255,0.3);
+        padding-bottom: 0.75rem;
+    }
+    
+    .comparison-images img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .btn.py-3 {
+        padding: 0.75rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-container {
+        height: 280px;
+    }
+    
+    .comparison-images {
+        gap: 1rem;
+    }
+    
+    .comparison-images img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
