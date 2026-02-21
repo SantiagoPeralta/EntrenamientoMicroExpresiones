@@ -269,11 +269,11 @@ function checkAnswer() {
             </div>
             <div class="comparison-images">
                 <div class="text-center">
-                    <img src="${neutralImg.src}" alt="Neutral" class="border">
+                    <img src="https://ik.imagekit.io/tu_id_usuario/${neutralImg.src}" alt="Neutral" class="border">
                     <small class="d-block text-muted mt-1">Neutral</small>
                 </div>
                 <div class="text-center">
-                    <img src="${expressionImg.src}" alt="Expresión" class="border">
+                    <img src="https://ik.imagekit.io/tu_id_usuario/${expressionImg.src}" alt="Expresión" class="border">
                     <small class="d-block text-muted mt-1">${correctEmotion.name}</small>
                 </div>
             </div>
